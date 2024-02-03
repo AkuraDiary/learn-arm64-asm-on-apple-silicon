@@ -1,5 +1,8 @@
 //
 // hellow world
+// a step further from the typical helloworld asm
+// i made a genereal purpose _print function
+// to print the data inside the message:
 //
 
 .global _start

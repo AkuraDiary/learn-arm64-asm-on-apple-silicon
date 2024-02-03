@@ -1,9 +1,11 @@
 //
 // hellow world
+// a general purpose print function in asm
+//
 //
 
 .global _start
-.align 2
+.align 2		// align the current location counter to the next 2^2 byte boundary
 
 _start:
   adr x1, message	// address the string message into x1 register
@@ -26,6 +28,7 @@ _terminate:
   mov X16, #1	// terminate
   svc 0		// syscal
 
-
 message: .asciz "hellow world \n"
-message_len= .-message 
+message_len= .-message
+
+
