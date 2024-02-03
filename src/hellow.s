@@ -9,7 +9,7 @@
 .align 2
 
 _start:
-  adr x1, message	// address the string message into x1 register
+  adr x1, message	// addresssing (loading its address) of label message into x1 register
   b _print		// call the print function
   
   b _terminate
@@ -19,8 +19,8 @@ _print:
   // x1 : the string to be printed
   // x2 : the len of the string
 
-  mov X0, #1 		// stdout  
-  ldr x2, =message_len	// load the message_len using its address into the x2 register
+  mov X0, #1 		// instruction to stdout  
+  ldr x2, =message_len	// load the message_len value using its address into the x2 register
   mov X16, #4		// write to stdout
   svc 0			// syscall
 
