@@ -46,7 +46,12 @@ _loop:
   b.cs _terminate		// if true terminate loop
   add X2, X2, #1		// increment x2 by 1
   mov X0, #1			// call to stdout
-  mov X1, SP			// point X1 to output string
+
+  // since the stack pointer is already pointing to the last added item 
+  // in this case which is the X8 & X9 containing the message 
+  // we can just point it into the X1 register
+  mov X1, SP		
+ 
   mov X16, #4 			// UNIX call to write to stdout
   svc #0			// call the kernel
   b _loop
