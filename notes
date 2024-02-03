@@ -1,0 +1,23 @@
+//
+// memory and register convention
+//
+
+common conventions for ARM64 registers:
+
+x0 - x7 (and w0 - w7): These are general-purpose registers. x0 and w0 are commonly used for function return values. Parameters are often passed in x0 to x7.
+
+x8 - x15 (and w8 - w15): These are callee-saved registers. If a function uses these registers, it must save and restore their values.
+
+x16 (and w16): This register is often used for the system call number when making system calls (e.g., svc 0).
+
+x17 (and w17): This register is often used as an alternative link register (lr) for branch instructions.
+
+x18 - x28 (and w18 - w28): These are callee-saved registers. Similar to x8 to x15, if a function uses these registers, it must save and restore their values.
+
+x29 (and w29): This is the frame pointer (fp).
+
+x30 (and w30): This is the link register (lr). It is used to store the return address of function calls.
+
+sp (and wsp): The stack pointer.
+
+pc (and wpc): The program counter.
