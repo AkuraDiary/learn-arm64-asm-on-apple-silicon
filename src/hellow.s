@@ -20,7 +20,7 @@ _print:
   // x2 : the len of the string
 
   mov X0, #1 		// stdout  
-  ldr x2, =message_len	// address the initial len into the x2 register
+  ldr x2, =message_len	// load the message_len using its address into the x2 register
   mov X16, #4		// write to stdout
   svc 0			// syscall
 

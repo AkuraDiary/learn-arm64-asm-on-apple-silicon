@@ -1,6 +1,6 @@
 //
-// hellow world
-// a general purpose print function in asm
+// here we have
+// - a print function in asm
 //
 //
 
@@ -19,7 +19,7 @@ _print:
   // x2 : the len of the string
 
   mov X0, #1 		// stdout  
-  ldr x2, =message_len	// address the initial len into the x2 register
+  ldr x2, =message_len	// address the message_len into the x2 register
   mov X16, #4		// write to stdout
   svc 0			// syscall
 
