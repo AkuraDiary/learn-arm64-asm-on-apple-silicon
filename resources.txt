@@ -1,0 +1,6 @@
+Learning resources
+
+- https://www.ic.unicamp.br/~pannain/mc404/aulas/pdfs/Art%20Of%20Intel%20x86%20Assembly.pdf
+- https://opensource.apple.com/source/xnu/xnu-1504.3.12/bsd/kern/syscalls.master
+- https://developer.arm.com/documentation/ddi0596/2020-12/Base-Instructions/LDUR--Load-Register--unscaled--
+- https://www.youtube.com/watch?v=rg6kU42LQcY
