@@ -12,6 +12,11 @@
   - SP must always be aligned to 16 bytes boundary
   - No explicit push or pop in arm architecture
     so instead we manipulate the str/stp (to push) & ldr/ldp (to pop)  
+
+  i.e : 
+
+  stp X0, X1, [SP, #-16]! 	// push X0, X1, to the stack then decrease SP by 16
+  ldp X0, X1, [SP], #16 	// pop stack entry into X0, X1 then increase SP by 16
  
 nb: 
  apple use Little Endian Format (on apple silicone)
