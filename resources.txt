@@ -4,3 +4,5 @@ Learning resources
 - https://opensource.apple.com/source/xnu/xnu-1504.3.12/bsd/kern/syscalls.master
 - https://developer.arm.com/documentation/ddi0596/2020-12/Base-Instructions/LDUR--Load-Register--unscaled--
 - https://www.youtube.com/watch?v=rg6kU42LQcY
+- https://www.youtube.com/watch?v=fJcdt7WMQCs&list=PLn_It163He32Ujm-l_czgEBhbJjOUgFhg&index=4
+
