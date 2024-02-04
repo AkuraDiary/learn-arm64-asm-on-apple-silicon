@@ -11,49 +11,46 @@
 /* entry point */
 
 _start:
-  mov x3, #16  		// move the loop value into the x3 register 
-  bl _loop 		// call the loop function
-
+  adr X8, message    	 	// addressing the message string into X8 register 
+  ldr X9, =message_len  	// load pair the message_len pointer into X3 and X9 register
+  stp X8, X9, [SP, #-16]! 	// push the message to stack
+  
+  mov X4, #0			// set the initial X4 value to be 0
+  mov X3, #10			// set the X3 value to be 10
+  bl _loop 			// call the loop function
   b _terminate
 
 
 /*
   _loop
   simple loop implementation 
-  @params
-  x2 value to be compared
+  x4 value to be compared
   x3 value to compare
 */
 
 _loop:
-  mov x2, #0		// set the initial x2 value to be 0
-  cmp x2, x3 		// compare the x2 to x3 value
+  cmp X4, X3 			// compare the x4 value to 10
+  b.cs _end_loop 	 	// this is the stop or termination condition where X4 > 10 is true
   
-  // this is the stop or termination condition
-  b.hs _end_loop	// test if x2 > x3 if true, end the loop
-  
-  // this is the loop body  
-  adr x1, message	// load the address correspond to the message label into x1 register
-  
+  // the loop body
+  add X4, X4, #1		// increment the X4 by the value of 1
 
-  add x2, x2, #1 	// increment value inside x2 by 1
-  b _loop 	    	// re-iterate the function
+  mov X0, #1 			// call to stdout
+  ldp X1, X2, [SP], #16 	// load the message string and message len  
+  mov X16, #4			// write to stdout
+
+  stp X1, X2, [SP, #-16]! 	// push the message string and len to the stack again to print it for next iteration
+  svc #0			// system call
+
+  b _loop 	    		// re-iterate the function
 
 _end_loop:
+
+  ldp X1, X2, [SP], #16
+  eor X1, X1, X1
+  eor X2, X2, X2
+
   ret
-
-/*
-  _print
-  print a string into stdout 
-  @params
-  x1 : the string to be printed
-  x2 : the len of the string
-*/
-
-_print:
-  mov X0, #1 		// call to the system to stdout  
-  mov X16, #4		// write to stdout
-  svc 0			// syscall
 
 // _terminate
 // call this to terminate the program
