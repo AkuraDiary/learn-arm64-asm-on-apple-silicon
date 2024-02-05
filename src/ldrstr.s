@@ -1,3 +1,4 @@
+
 //
 // basic of the ldr and str instruction
 //
@@ -20,23 +21,24 @@
   so instead we're gonna be using the ldr and str operation  
 */ 
 	
-.text
 
 _start:
+					// I suppose
+ adrp X1, ayam@PAGE 			// this is going to to put the memory location of the ayam label
+  					// and not actually putting the value into the register itself
+ add X1, X1, ayam@PAGEOFF	  	// now we're actually putting the value of the label 
+					// into the X1 register
+					// well, I haven't fully understand how this work yet
+ b _print
+ b _terminate
 
-  adrp X1, ayam@PAGE 			// this is going to to put the memory location of the ayam label
-  add X1, X1, ayam@PAGEOFF		// and not actually putting the value 5 into the register itself
-
-  //adr X2, ayam
-  //ldr X1, [X3]  	// now we're actually loading the value of ayam into the X1 register
-			// by dereferencing it ayam's addres that's loaded in X1
-  			// using ldr with [] loads the actual value similiar to dereferencing a pointer
-   
+_print:   
   mov X0, #1
   mov X2, #10
   mov X16, #4
   svc #0
 
+_terminate:
   mov X0, #69
   mov X16, #1
   svc #0
@@ -48,13 +50,11 @@ _start:
  directly into the register
 */ 
 
-.data			// now for some reason, i can't get the program running correctly if i'm using section  
+.align 4
 
-ayam: 
-  .asciz "ayam" 		// we declare a label called ayam with type of .word with the value of 5
-
-//bebek: .asciz "bebek"
-
+.data				// now for some reason, i can't get the program running correctly if i'm using section
+ayam: .asciz "ayam" 		// we declare a label called ayam with type of .word with the value of 
+bebek: .asciz "bebek"
 
 /*
   nb:  to understand what the data types you can work on with assembly, go read the documentation
