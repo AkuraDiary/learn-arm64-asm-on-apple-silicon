@@ -7,6 +7,8 @@
 
 .balign 4
  msg: .ds 16 			// input memory buffer for keyboard input
+				// we're actually gonna use this field
+ 				// to store our input from terminal
 
 .balign 4
  input_msg: .asciz "Input Value : "
@@ -20,22 +22,26 @@
 .align 4
 
 _start:
- 
+
+  // print the input holder 
   adrp X1, input_msg@page
   add X1, X1, input_msg@pageoff
 
   bl _sizeof
   bl _print
 
+  // actually taking the input
   mov X2, #16
   bl _read
   
+  // print the output holder
   adrp X1, output_msg@page
   add X1, X1, output_msg@pageoff
 
   bl _sizeof
   bl _print
   
+  // printing the input
   adrp X1, msg@page
   add X1, X1, msg@pageoff
   
@@ -45,34 +51,37 @@ _start:
   b _terminate 
  
 /*
+ @Documentation
+
  _read:
  taking input from the terminal
  
- @ params
- X2 : lentgth of the input buffer
+ @params
+ X2 : lentgth of the input string
 
- @ usage example
+ @usage example
  mov X2, #4
  bl _read_user_input
 
+ @explanation
+ now like the stdout that will print the value from the X1 register
+ stdin will save the value into X1, but in order to use it,
+ we have to store it into the .data section
+ in this case msg label, which has the buffer size of 16 
 */
 
 _read:
 
-  //  str LR, [SP, #-16]! 		// push the latest value of link register into the stack
   mov X0, #0 			// call to stdin
 
-  Lloh0:adrp X1, msg@page
-  Lloh1:add X1, X1, msg@pageoff
+  Lloh0:adrp X1, msg@page	// here we're addressing the msg label in the data section
+  Lloh1:add X1, X1, msg@pageoff // into the X1 register, to hold our inputs
   
   .loh AdrpAdd Lloh0, Lloh1	// optimization things i havent understand
 
-  mov X16, #3			// system read
-  svc #0
-
-  // we don't need this yet
-  //  ldr LR, [SP, #-16]		// pop back the link register from the sta
-  
+  mov X16, #3			// call to stdin
+  svc #0			// syscall
+ 
   ret
 
 
@@ -81,18 +90,16 @@ _read:
 
  @ params
  X1 : address or the string to be printed
- X2 :  len of the string
+ X2 : len of the string
 
 */
 
 _print:
- // str LR, [SP, #-16]!
  
  mov X0, #1 			// call to stdout
  mov X16, #4			// write to stdout 
  svc #0
 
- // ldr LR, [SP, #-16]!
  ret
 
 
@@ -107,7 +114,6 @@ _print:
 */
 
 _sizeof:        
-  // str LR, [SP, #-16]!     	//Store registers
 
   mov X2, #0
   __loop:
@@ -116,8 +122,6 @@ _sizeof:
     add X2, X2, #1     		//Add 1 offset  
     cmp W0, #0          	//Compare byte with null value return
     b.ne __loop
-
-  // ldr LR, [SP], #16         	//Load registers
 
   ret
 

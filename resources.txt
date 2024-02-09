@@ -6,3 +6,4 @@ Learning resources
 - https://www.youtube.com/watch?v=rg6kU42LQcY
 - https://www.youtube.com/watch?v=fJcdt7WMQCs&list=PLn_It163He32Ujm-l_czgEBhbJjOUgFhg&index=4
 
+- https://stackoverflow.com/questions/70592614/capture-input-in-assembly-arm-64-bit-mac-os
