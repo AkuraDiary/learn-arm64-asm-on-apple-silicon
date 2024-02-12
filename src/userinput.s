@@ -70,6 +70,7 @@ _start:
  in this case msg label, which has the buffer size of 16 
 */
 
+.global _read
 _read:
 
   mov X0, #0 			// call to stdin
@@ -94,6 +95,7 @@ _read:
 
 */
 
+.global print
 _print:
  
  mov X0, #1 			// call to stdout
@@ -113,6 +115,7 @@ _print:
  
 */
 
+.global _sizeof
 _sizeof:        
 
   mov X2, #0
